@@ -1,5 +1,6 @@
 import doshaImg from '@/assets/Dosha.png'
 import sentimentImg from '@/assets/sentiment_ana.png'
+import Myimage from '@/assets/Myimage.png'
 
 export const personalInfo = {
   name: 'Vidya Sagar',
@@ -12,6 +13,7 @@ export const personalInfo = {
   linkedin: 'https://linkedin.com/in/vidyasagar',
   resume: '/resume.pdf',
   available: true,
+  image: Myimage,
 }
 
 export const stats = [

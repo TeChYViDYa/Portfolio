@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vidya Sagar — Full Stack Developer</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --border: #e5e7eb;
+      --text: #111827;
+      --muted: #4b5563;
+      --accent: #2d6a4f;
+      --accent-soft: #d8f3dc;
+      --radius: 22px;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-container {
+      padding: 0 20px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 28px;
+      gap: 18px;
+      min-height: 76px;
+      background: rgba(248, 250, 252, 0.98);
+      border-bottom: 1px solid rgba(229, 231, 235, 0.85);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .logo {
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      font-size: 1.1rem;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .nav-links a.button-link {
+      color: white;
+      background: var(--accent);
+      padding: 12px 20px;
+      border-radius: 999px;
+    }
+
+    .nav-links a:hover,
+    .button-link:hover {
+      color: var(--text);
+    }
+
+    .button-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: opacity 0.2s ease;
+    }
+
+    .button-outline {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text);
+    }
+
+    .button-outline:hover {
+      border-color: var(--text);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: start;
+      gap: 48px;
+      min-height: calc(100vh - 96px);
+      padding: 60px 0 40px;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 32px;
+      line-height: 1.2;
+    }
+
+    .hero-eyebrow .eyebrow-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 0.8rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .hero-eyebrow .eyebrow-text span {
+      display: block;
+    }
+
+    .hero-eyebrow span.dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 3px;
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 4vw, 5rem);
+      line-height: 0.95;
+      margin: 0 0 24px;
+      font-weight: 800;
+    }
+
+    .hero-title strong,
+    .hero-title span {
+      color: var(--accent);
+    }
+
+    .hero-copy {
+      max-width: 520px;
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .hero-buttons a {
+      min-width: 160px;
+    }
+
+    .button-link,
+    .button-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 52px;
+    }
+
+    .button-outline {
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text);
+      transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .button-outline:hover {
+      border-color: var(--accent);
+      background: #f8fafc;
+    }
+
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      margin-top: 20px;
+    }
+
+    .stat {
+      min-width: 120px;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    section {
+      padding: 80px 0;
+    }
+
+    .section-label {
+      font-size: 0.85rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .section-heading {
+      font-size: clamp(2.5rem, 3vw, 3.5rem);
+      margin: 0 0 24px;
+      line-height: 1.05;
+      font-weight: 800;
+    }
+
+    .section-copy {
+      max-width: 680px;
+      color: var(--muted);
+      margin-bottom: 40px;
+      font-size: 1rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 32px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.05);
+      margin-bottom: 24px;
+    }
+
+    .hero-card {
+      position: relative;
+      background: white;
+      border-radius: 32px;
+      min-height: 420px;
+      overflow: hidden;
+      box-shadow: 0 30px 90px rgba(17, 24, 39, 0.1);
+    }
+
+    .hero-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-card-badge {
+      position: absolute;
+      left: 24px;
+      bottom: 24px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px 18px;
+      display: inline-flex;
+      color: var(--text);
+      font-weight: 700;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill {
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .quote-card {
+      border-left: 6px solid var(--accent);
+      padding: 28px;
+      background: white;
+      color: var(--text);
+      min-height: 240px;
+    }
+
+    .quote-card blockquote {
+      margin: 0 0 16px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .quote-card cite {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .skill-card {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      min-height: 240px;
+    }
+
+    .skill-icon {
+      font-size: 1.8rem;
+    }
+
+    .skill-category {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .tech-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tech-pill {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .project-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: stretch;
+      padding: 36px;
+      margin-bottom: 32px;
+      min-height: 520px;
+    }
+
+    .project-card > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100%;
+    }
+
+    .project-image {
+      min-height: 320px;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .project-header {
+      margin-bottom: 14px;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .project-title {
+      margin: 0 0 18px;
+      font-size: 1.55rem;
+      line-height: 1.15;
+      font-weight: 800;
+    }
+
+    .project-description {
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .project-links a {
+      padding-bottom: 2px;
+    }
+
+    .project-links a {
+      color: var(--accent);
+      font-weight: 700;
+      border-bottom: 1px solid rgba(45, 106, 79, 0.2);
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 24px;
+      border-left: 3px solid var(--border);
+      display: grid;
+      gap: 28px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 24px;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -12px;
+      top: 8px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .timeline-year {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .timeline-role {
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .timeline-org {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .timeline-copy {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .value-card {
+      padding: 28px;
+    }
+
+    .value-icon {
+      font-size: 1.9rem;
+      margin-bottom: 16px;
+    }
+
+    .value-title {
+      margin: 0 0 12px;
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+
+    .value-copy {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .contact-panel {
+      text-align: center;
+      max-width: 660px;
+      margin: 0 auto 40px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 18px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: white;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .contact-form {
+      max-width: 700px;
+      margin: 0 auto;
+      display: grid;
+      gap: 16px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 18px;
+      font-size: 1rem;
+      color: var(--text);
+      background: white;
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 160px;
+    }
+
+    .contact-form button {
+      border: none;
+      cursor: pointer;
+      background: var(--accent);
+      color: white;
+      padding: 16px 20px;
+      border-radius: 16px;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .footer {
+      padding: 36px 0;
+      text-align: center;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    .success-message {
+      max-width: 640px;
+      margin: 0 auto;
+      background: #d8f3dc;
+      color: #166534;
+      padding: 24px;
+      border-radius: 20px;
+      font-weight: 700;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .project-card {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-container {
+        padding: 0 16px 40px;
+      }
+
+      .hero {
+        padding-top: 60px;
+      }
+
+      .button-link,
+      .button-outline {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-nav page-container">
+    <div class="logo">VS<span>.</span></div>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a class="button-link" href="#contact">Contact</a>
+    </nav>
+  </div>
+
+  <main class="page-container">
+    <section class="hero">
+      <div>
+        <div class="hero-eyebrow">
+          <span class="dot"></span>
+          <div class="eyebrow-text">
+            <span>Available</span>
+            <span>for</span>
+            <span>work</span>
+          </div>
+        </div>
+        <h1 class="hero-title">BUILDING<br /><span>DIGITAL</span><br />PRODUCTS</h1>
+        <p class="hero-copy">Full Stack Developer focused on creating meaningful digital experiences through thoughtful design and scalable engineering.</p>
+        <div class="hero-buttons">
+          <a class="button-link" href="#projects">View Projects</a>
+          <a class="button-outline" href="#contact">Contact Me</a>
+        </div>
+        <div class="stats-row">
+          <div class="stat"><div class="stat-number">1+</div><div class="stat-label">Year Learning</div></div>
+          <div class="stat"><div class="stat-number">10+</div><div class="stat-label">Projects Built</div></div>
+          <div class="stat"><div class="stat-number">12+</div><div class="stat-label">Technologies</div></div>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <img src="./src/assets/Myimage.jpg" alt="Vidya Sagar" />
+        <div class="hero-card-badge">Vidya Sagar · Full Stack Developer · CS Student</div>
+      </div>
+    </section>
+
+    <section id="about">
+      <span class="section-label">About Me</span>
+      <h2 class="section-heading">I build things<br />that matter.</h2>
+      <div class="grid-2">
+        <div>
+          <p class="section-copy">Hi, I'm <strong>Vidya Sagar</strong> — a first-year Computer Science student and full stack developer with a passion for building clean, functional, and impactful digital products.</p>
+          <p class="section-copy">I believe great software isn't just about code. It's about <strong>understanding people, solving real problems,</strong> and delivering experiences that feel effortless. Every project I take on, I approach with curiosity and intention.</p>
+          <p class="section-copy">Currently exploring the world of web development, backend systems, and open source. I'm always building, always learning, and always looking for the next challenge.</p>
+          <div class="pill-list">
+            <span class="pill">Problem Solver</span>
+            <span class="pill">Open Source Enthusiast</span>
+            <span class="pill">CS Student</span>
+            <span class="pill">Builder</span>
+          </div>
+        </div>
+        <div class="quote-card">
+          <blockquote>"Good code is written for humans first, and machines second. I strive to write software that is readable, maintainable, and purposeful."</blockquote>
+          <cite>— My approach to engineering</cite>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <span class="section-label">Skills</span>
+      <h2 class="section-heading">My Tech Stack</h2>
+      <p class="section-copy">A curated toolkit of technologies I use to bring ideas to life — from pixels to databases.</p>
+      <div class="grid-3">
+        <div class="card skill-card"><div class="skill-icon">🎨</div><div class="skill-category">Frontend</div><div class="tech-list"><span class="tech-pill">React</span><span class="tech-pill">Next.js</span><span class="tech-pill">HTML</span><span class="tech-pill">CSS</span><span class="tech-pill">Tailwind</span><span class="tech-pill">TypeScript</span></div></div>
+        <div class="card skill-card"><div class="skill-icon">⚙️</div><div class="skill-category">Backend</div><div class="tech-list"><span class="tech-pill">Node.js</span><span class="tech-pill">Express</span><span class="tech-pill">Python</span><span class="tech-pill">REST APIs</span><span class="tech-pill">Java</span></div></div>
+        <div class="card skill-card"><div class="skill-icon">🗄️</div><div class="skill-category">Databases</div><div class="tech-list"><span class="tech-pill">MongoDB</span><span class="tech-pill">PostgreSQL</span><span class="tech-pill">MySQL</span><span class="tech-pill">Firebase</span></div></div>
+        <div class="card skill-card"><div class="skill-icon">☁️</div><div class="skill-category">Cloud & DevOps</div><div class="tech-list"><span class="tech-pill">Git</span><span class="tech-pill">GitHub</span><span class="tech-pill">Vercel</span><span class="tech-pill">Docker</span><span class="tech-pill">Linux</span></div></div>
+        <div class="card skill-card"><div class="skill-icon">🛠️</div><div class="skill-category">Tools</div><div class="tech-list"><span class="tech-pill">VS Code</span><span class="tech-pill">Figma</span><span class="tech-pill">Postman</span><span class="tech-pill">npm</span></div></div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <span class="section-label">Projects</span>
+      <h2 class="section-heading">Work I'm proud of.</h2>
+      <p class="section-copy">A selection of projects where I turned ideas into real, working products.</p>
+      <div class="card project-card">
+        <div>
+          <div class="project-header">Project 01</div>
+          <h3 class="project-title">Dosha-App — Discover your Ayurvedic Dosha</h3>
+          <p class="project-description">A personalized wellness app that identifies your Ayurvedic dosha through a simple quiz and provides daily health tips, diet recommendations, and lifestyle advice based on your unique constitution.</p>
+          <div class="tech-list">
+            <span class="tech-pill">React</span><span class="tech-pill">Node.js</span><span class="tech-pill">MongoDB</span><span class="tech-pill">Socket.io</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/TeChYViDYa/dosha-app" target="_blank">GitHub →</a>
+            <a href="https://devconnect.vercel.app" target="_blank">Live Demo →</a>
+          </div>
+        </div>
+        <div class="project-image"><img src="./src/assets/Dosha.png" alt="Dosha App Preview" /></div>
+      </div>
+
+      <div class="card project-card">
+        <div>
+          <div class="project-header">Project 02</div>
+          <h3 class="project-title">Sentiment Analyzer — AI-Powered Text Analysis</h3>
+          <p class="project-description">A smart sentiment analysis tool that provides insights into text data using machine learning algorithms. Features real-time processing, customizable models, and detailed reporting.</p>
+          <div class="tech-list">
+            <span class="tech-pill">Next.js</span><span class="tech-pill">PostgreSQL</span><span class="tech-pill">Chart.js</span><span class="tech-pill">Tailwind</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/TeChYViDYa/Sentiment-Analyzer" target="_blank">GitHub →</a>
+            <a href="https://budgetbuddy.vercel.app" target="_blank">Live Demo →</a>
+          </div>
+        </div>
+        <div class="project-image"><img src="./src/assets/sentiment_ana.png" alt="Sentiment Analyzer Preview" /></div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <span class="section-label">Experience</span>
+      <h2 class="section-heading">My Journey</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">2026 - Present</div>
+          <h3 class="timeline-role">Web Developer</h3>
+          <div class="timeline-org">Different Companies & Freelance</div>
+          <p class="timeline-copy">Built responsive websites and web apps for small businesses and individuals. Delivered projects using React, Node.js, and various backend technologies.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2025</div>
+          <h3 class="timeline-role">B.Tech in ECE</h3>
+          <div class="timeline-org">UIET Chandigarh, Panjab University</div>
+          <p class="timeline-copy">Pursuing my degree with a focus on data structures, algorithms, full stack development, and software engineering principles. Actively building projects alongside coursework.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2023</div>
+          <h3 class="timeline-role">Started Coding Journey</h3>
+          <div class="timeline-org">Self-taught</div>
+          <p class="timeline-copy">Began with Python and HTML/CSS, quickly moved into JavaScript and full stack development. Built my first full stack application within 6 months of starting.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <span class="section-label">Principles</span>
+      <h2 class="section-heading">How I Build</h2>
+      <p class="section-copy">The guiding principles that shape how I write code, design systems, and collaborate with others.</p>
+      <div class="grid-3">
+        <div class="value-card card"><div class="value-icon">✦</div><h3 class="value-title">Simplicity</h3><p class="value-copy">The best solutions are the ones that don't feel like solutions at all. I strip away complexity until only clarity remains.</p></div>
+        <div class="value-card card"><div class="value-icon">◎</div><h3 class="value-title">Clarity</h3><p class="value-copy">Whether it's code or communication, I prioritize being understood over being impressive.</p></div>
+        <div class="value-card card"><div class="value-icon">◆</div><h3 class="value-title">Craftsmanship</h3><p class="value-copy">I care deeply about the details — the ones users never see, and the ones they feel every time they use an app.</p></div>
+        <div class="value-card card"><div class="value-icon">⟳</div><h3 class="value-title">Continuous Learning</h3><p class="value-copy">Technology evolves fast. I embrace that. Every project is a chance to learn something new and grow as an engineer.</p></div>
+        <div class="value-card card"><div class="value-icon">❋</div><h3 class="value-title">Service</h3><p class="value-copy">I build for people. The measure of great software is not how clever it is — it's how well it serves its users.</p></div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact-panel">
+        <span class="section-label">Contact</span>
+        <h2 class="section-heading">Let's Build Something <span style="color: var(--accent);">Meaningful</span></h2>
+        <p class="section-copy">Whether you have a project in mind, want to collaborate, or just want to say hello — my inbox is always open.</p>
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:vidyasagar@email.com">Email</a>
+          <a class="contact-link" href="https://linkedin.com/in/vidyasagar" target="_blank">LinkedIn</a>
+          <a class="contact-link" href="https://github.com/TeChYViDYa" target="_blank">GitHub</a>
+          <a class="contact-link" href="/resume.pdf" target="_blank">Resume</a>
+        </div>
+      </div>
+
+      <div id="contact-form-container">
+        <form id="contact-form" class="contact-form">
+          <input type="text" id="name" placeholder="Your name" required />
+          <input type="email" id="email" placeholder="Your email" required />
+          <textarea id="message" placeholder="Tell me about your project or idea..." required></textarea>
+          <button type="submit">Send Message →</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer page-container">
+    Designed & built with ♡ by <strong>Vidya Sagar</strong> · 2025
+  </footer>
+
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const container = document.getElementById('contact-form-container');
+      container.innerHTML = '<div class="success-message">✓ Message sent! I\'ll get back to you soon.</div>';
+    });
+  </script>
+</body>
+</html>
